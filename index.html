@@ -239,6 +239,14 @@
     
     const checkWord = () => {
         if (selectedPath.length === 0) return;
+        
+        // --- Debugging Log Added ---
+        if (typeof console !== 'undefined' && console.log) {
+            console.log("Attempting to check word.");
+            console.log("Selected Path Length:", selectedPath.length);
+            console.log("Selected Path:", selectedPath);
+        }
+        // -----------------------------
 
         let match = HIDDEN_WORDS.find(wordObj => {
             if (wordObj.found) return false;
