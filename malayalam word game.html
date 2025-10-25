@@ -1,0 +1,411 @@
+
+<!-- saved from url=(0078)file:///C:/Users/Venkatramvasi/OneDrive/Documents/malayalam%20word%20game.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    /* Custom styles for the grid and selection visuals */
+    .grid-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.1s ease-in-out;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        /* Default text color (gray-400 equivalent) */
+        color: #94a3b8; 
+    }
+
+    /* 1. Global/Wrapper Styles (Forced to be dark) */
+    #wrapper-div {
+        background-color: #1e293b !important; /* primary-dark */
+        color: white !important;
+        padding: 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100%;
+        min-height: 50vh;
+        box-sizing: border-box; /* Ensures padding doesn't break width */
+    }
+    
+    /* 2. Main Game Card Styles */
+    #main-content-box {
+        width: 100%;
+        max-width: 512px; /* max-w-lg */
+        background-color: #1f2937; /* bg-gray-800 */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.75rem; /* rounded-xl */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 3. Header and Text Styles */
+    .header-title {
+        font-size: 2.25rem; /* text-4xl */
+        font-weight: 800; /* font-extrabold */
+        color: #f97316; /* accent-orange */
+        text-transform: uppercase;
+        letter-spacing: 0.05em; /* tracking-wider */
+    }
+    .header-subtitle {
+        color: #3b82f6; /* secondary-blue */
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 600; /* font-semibold */
+        margin-top: 0.25rem;
+    }
+    
+    /* 4. Grid Container */
+    #game-grid {
+        display: grid;
+        width: 100%;
+        gap: 4px; /* gap-1 */
+        padding: 8px; /* p-2 */
+        background-color: #111827; /* bg-gray-900 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    
+    /* 5. Found Words List */
+    #found-words-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* grid-cols-2 */
+        gap: 8px; /* gap-2 */
+    }
+
+    /* Selection Styles (Kept for visual continuity) */
+    .selected {
+        background-color: #3b82f6; /* Secondary Blue */
+        color: white !important;
+        transform: scale(1.05);
+        border-radius: 6px;
+    }
+    .found {
+        background-color: #f97316; /* Accent Orange */
+        color: #1e293b !important;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+    .theme-word {
+        background-color: #10b981; /* Emerald Green */
+        color: #1e293b !important;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #10b981;
+        pointer-events: none;
+    }
+</style>
+
+<!-- WRAPPER DIV - Uses explicit CSS/IDs -->
+</head><body><div id="wrapper-div">
+
+    <header class="text-center mb-6 w-full max-w-lg">
+        <h1 class="header-title">
+            ഐസവ് ക്രിയേഷൻസ്
+        </h1>
+        <p class="header-subtitle">
+            (Isav Creations)
+        </p>
+        <p style="font-size: 1.25rem; margin-top: 1rem; color: #d1d5db;">
+            മലയാളം വാക്ക് തിരയൽ (Strands)
+        </p>
+    </header>
+
+    <div id="main-content-box">
+        
+        <!-- Spotlight/Clue Area -->
+        <div id="clue-box" style="margin-bottom: 1.5rem; padding: 1rem; background-color: #111827; border-radius: 0.5rem; text-align: center; border-bottom: 4px solid #3b82f6;">
+            <p style="font-size: 0.875rem; font-weight: 300; color: #9ca3af;">സൂചന (Spotlight)</p>
+            <h2 id="theme-clue" style="font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-top: 0.25rem;">
+                കേരളീയ കലാരൂപങ്ങൾ
+            </h2>
+        </div>
+
+        <!-- Word Grid -->
+        <div id="game-grid" style="grid-template-columns: repeat(7, 1fr);">
+            <!-- Grid cells will be generated here by JavaScript -->
+        <div id="cell-0-0" class="grid-cell rounded"><span>ക</span></div><div id="cell-0-1" class="grid-cell rounded"><span>ള</span></div><div id="cell-0-2" class="grid-cell rounded"><span>രി</span></div><div id="cell-0-3" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-0-4" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-0-5" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-0-6" class="grid-cell rounded"><span>മോ</span></div><div id="cell-1-0" class="grid-cell rounded"><span>ം</span></div><div id="cell-1-1" class="grid-cell rounded"><span>ട</span></div><div id="cell-1-2" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-1-3" class="grid-cell rounded"><span>ത</span></div><div id="cell-1-4" class="grid-cell rounded"><span>ട്ട</span></div><div id="cell-1-5" class="grid-cell rounded"><span>യം</span></div><div id="cell-1-6" class="grid-cell rounded"><span>ഹി</span></div><div id="cell-2-0" class="grid-cell rounded"><span>ക</span></div><div id="cell-2-1" class="grid-cell rounded"><span>ഥ</span></div><div id="cell-2-2" class="grid-cell rounded"><span>ക</span></div><div id="cell-2-3" class="grid-cell rounded"><span>ളി</span></div><div id="cell-2-4" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-2-5" class="grid-cell rounded"><span>യ</span></div><div id="cell-2-6" class="grid-cell rounded"><span>നി</span></div><div id="cell-3-0" class="grid-cell rounded"><span>ഓ</span></div><div id="cell-3-1" class="grid-cell rounded"><span>ട്ടൻ</span></div><div id="cell-3-2" class="grid-cell rounded"><span>തു</span></div><div id="cell-3-3" class="grid-cell rounded"><span>ള്ള</span></div><div id="cell-3-4" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-3-5" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-3-6" class="grid-cell rounded"><span>യാ</span></div><div id="cell-4-0" class="grid-cell rounded"><span>യി</span></div><div id="cell-4-1" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-4-2" class="grid-cell rounded"><span>ം</span></div><div id="cell-4-3" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-4-4" class="grid-cell rounded"><span>ത</span></div><div id="cell-4-5" class="grid-cell rounded"><span>ൾ</span></div><div id="cell-4-6" class="grid-cell rounded"><span>ട്ടം</span></div><div id="cell-5-0" class="grid-cell rounded"><span>ട</span></div><div id="cell-5-1" class="grid-cell rounded"><span>തെ</span></div><div id="cell-5-2" class="grid-cell rounded"><span>യ്</span></div><div id="cell-5-3" class="grid-cell rounded"><span>യം</span></div><div id="cell-5-4" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-5-5" class="grid-cell rounded"><span>യി</span></div><div id="cell-5-6" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-6-0" class="grid-cell rounded"><span>ൽ</span></div><div id="cell-6-1" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-6-2" class="grid-cell rounded"><span>യി</span></div><div id="cell-6-3" class="grid-cell rounded"><span>ം</span></div><div id="cell-6-4" class="grid-cell rounded"><span>ട</span></div><div id="cell-6-5" class="grid-cell rounded"><span>ൻ</span></div><div id="cell-6-6" class="grid-cell rounded"><span>ൾ</span></div></div>
+
+        <!-- Status Message -->
+        <div id="status-message" style="margin-top: 1.5rem; text-align: center; font-size: 1.125rem; font-weight: 600; height: 2rem; display: flex; align-items: center; justify-content: center; color: #d1d5db;">
+            വാക്ക് തിരഞ്ഞെടുക്കുക (Select the word)
+        </div>
+
+        <!-- Found Words List -->
+        <div style="margin-top: 2rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #e5e7eb; border-bottom: 1px solid #374151; padding-bottom: 0.25rem;">കണ്ടെത്തിയ വാക്കുകൾ (Found Words)</h3>
+            <div id="found-words-list">
+                <!-- Found words will be displayed here -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- GAME LOGIC SCRIPT (MUST COME AFTER THE HTML ELEMENTS) -->
+<script>
+    const GRID_SIZE = 7;
+    const GRID_CONTAINER = document.getElementById('game-grid');
+    const FOUND_WORDS_LIST = document.getElementById('found-words-list');
+    const STATUS_MESSAGE = document.getElementById('status-message');
+
+    // The 7x7 grid in Malayalam characters/syllables
+    const GAME_GRID_CHARS = [
+        ["ക", "ള", "രി", "ൽ", "ൻ", "ൽ", "മോ"],
+        ["ം", "ട", "ൻ", "ത", "ട്ട", "യം", "ഹി"],
+        ["ക", "ഥ", "ക", "ളി", "ൻ", "യ", "നി"],
+        ["ഓ", "ട്ടൻ", "തു", "ള്ള", "ൽ", "ൽ", "യാ"],
+        ["യി", "ൽ", "ം", "ൻ", "ത", "ൾ", "ട്ടം"],
+        ["ട", "തെ", "യ്", "യം", "ൻ", "യി", "ൻ"],
+        ["ൽ", "ൻ", "യി", "ം", "ട", "ൻ", "ൾ"]
+    ];
+
+    // Hidden words and their paths (Row, Column)
+    let HIDDEN_WORDS = [
+        { word: "കളരി", path: [[0, 0], [0, 1], [0, 2]], found: false, malayalamName: "Kalari" }, // Martial Art
+        { word: "കഥകളി", path: [[2, 0], [2, 1], [2, 2], [2, 3]], found: false, malayalamName: "Kathakali" }, // Classical Dance/Drama
+        { word: "ഓട്ടൻതുള്ളൽ", path: [[3, 0], [3, 1], [3, 2], [3, 3], [3, 4]], found: false, malayalamName: "Ottanthullal" }, // Dance/Poetry
+        { word: "തെയ്യം", path: [[5, 1], [5, 2], [5, 3]], found: false, malayalamName: "Theyyam" }, // Ritual Art
+        { word: "മോഹിനിയാട്ടം", path: [[0, 6], [1, 6], [2, 6], [3, 6], [4, 6]], found: false, malayalamName: "Mohiniyattam" } // Classical Dance
+    ];
+
+    // The full theme word is revealed after all others are found
+    const THEME_WORD_TEXT = "നാട്യം"; // Nattiyam (Dance/Performance Art)
+    
+    let isDragging = false;
+    let selectedPath = [];
+    let totalWordsFound = 0;
+    let themeWordFound = false;
+
+    // --- Utility Functions ---
+
+    const getCell = (r, c) => document.getElementById(`cell-${r}-${c}`);
+    const getCoords = (id) => id.split('-').slice(1).map(Number);
+
+    const isAdjacent = (r1, c1, r2, c2) => {
+        const dr = Math.abs(r1 - r2);
+        const dc = Math.abs(c1 - c2);
+        return (dr <= 1 && dc <= 1) && (dr !== 0 || dc !== 0);
+    };
+
+    const calculatePath = (startId, endId) => {
+        const [sr, sc] = getCoords(startId);
+        const [er, ec] = getCoords(endId);
+        const path = [];
+
+        const dr = er - sr;
+        const dc = ec - sc;
+        const len = Math.max(Math.abs(dr), Math.abs(dc));
+
+        if (len === 0) return [startId];
+        
+        const isStraight = (dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc));
+        if (!isStraight) return []; 
+
+        const rStep = dr / len;
+        const cStep = dc / len;
+
+        for (let i = 0; i <= len; i++) {
+            const r = sr + i * rStep;
+            const c = sc + i * cStep;
+            path.push(`cell-${r}-${c}`);
+        }
+        return path;
+    };
+    
+    // --- Game Logic ---
+
+    const createGrid = () => {
+        // ESSENTIAL FIX: The grid columns definition must run before adding elements
+        GRID_CONTAINER.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 1fr)`;
+
+        for (let r = 0; r < GRID_SIZE; r++) {
+            for (let c = 0; c < GRID_SIZE; c++) {
+                const cell = document.createElement('div');
+                cell.id = `cell-${r}-${c}`;
+                // Use custom classes only, removing Tailwind classes
+                cell.classList.add('grid-cell', 'rounded');
+                
+                const letterSpan = document.createElement('span');
+                letterSpan.textContent = GAME_GRID_CHARS[r][c];
+                
+                cell.appendChild(letterSpan);
+                GRID_CONTAINER.appendChild(cell);
+            }
+        }
+    };
+
+    const arraysEqual = (a, b) => a.length === b.length && a.every((val, index) => val === b[index]);
+    
+    const checkWord = () => {
+        if (selectedPath.length === 0) return;
+
+        let match = HIDDEN_WORDS.find(wordObj => {
+            if (wordObj.found) return false;
+
+            const requiredIds = wordObj.path.map(([r, c]) => `cell-${r}-${c}`);
+            const requiredIdsReversed = [...requiredIds].reverse();
+
+            if (arraysEqual(selectedPath, requiredIds) || arraysEqual(selectedPath, requiredIdsReversed)) {
+                return true;
+            }
+            return false;
+        });
+
+        if (match) {
+            match.found = true;
+            totalWordsFound++;
+            highlightFoundWord(match.path);
+            updateFoundWordsList(match);
+            showStatusMessage(`'${match.word}' - കണ്ടെത്തി!`, 'color: #f97316;');
+            checkWinCondition();
+        } else {
+            showStatusMessage(`തെറ്റായ തിരഞ്ഞെടുപ്പ്. വീണ്ടും ശ്രമിക്കുക.`, 'color: #f87171;');
+        }
+
+        clearSelection();
+    };
+
+    // --- UI Updates ---
+
+    const highlightFoundWord = (path) => {
+        const isThemeWord = (totalWordsFound === HIDDEN_WORDS.length && !themeWordFound);
+        path.forEach(([r, c]) => {
+            const cell = getCell(r, c);
+            cell.classList.remove('selected');
+            cell.classList.add('found', isThemeWord ? 'theme-word' : '');
+            // Cell hover effects are now handled by CSS instead of Tailwind
+        });
+    };
+
+    const updateFoundWordsList = (wordObj) => {
+        const listItem = document.createElement('div');
+        // Use inline styles to replicate the necessary Tailwind classes for reliability
+        listItem.style.cssText = "padding: 0.5rem; background-color: #374151; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; color: #e5eeef;";
+        listItem.innerHTML = `
+            <p style="color: #3b82f6; font-weight: 700;">${wordObj.word}</p>
+            <p style="font-size: 0.75rem; color: #9ca3af;">(${wordObj.malayalamName})</p>
+        `;
+        FOUND_WORDS_LIST.appendChild(listItem);
+    };
+
+    const showStatusMessage = (message, style) => {
+        STATUS_MESSAGE.textContent = message;
+        STATUS_MESSAGE.style.color = style;
+    };
+
+    const clearSelection = () => {
+        selectedPath.forEach(id => {
+            const cell = document.getElementById(id);
+            if (cell && !cell.classList.contains('found')) {
+                cell.classList.remove('selected');
+            }
+        });
+        isDragging = false;
+        selectedPath = [];
+    };
+    
+    const checkWinCondition = () => {
+        if (totalWordsFound === HIDDEN_WORDS.length) {
+            if (!themeWordFound) {
+                themeWordFound = true;
+                const clueBox = document.getElementById('theme-clue');
+                clueBox.textContent = `സ്പോട്ട്‌ലൈറ്റ്: ${THEME_WORD_TEXT}`;
+                clueBox.classList.add('theme-word');
+                showStatusMessage(`എല്ലാ വാക്കുകളും കണ്ടെത്തി! സ്പോട്ട്‌ലൈറ്റ്: ${THEME_WORD_TEXT} - അഭിനന്ദനങ്ങൾ!`, 'color: #34d399;');
+            } else {
+                 showStatusMessage(`ഗെയിം പൂർത്തിയായി. അഭിനന്ദനങ്ങൾ!`, 'color: #34d399;');
+            }
+        }
+    };
+
+    // --- Event Handlers (Unchanged Logic) ---
+
+    const handleMouseDown = (event) => {
+        if (event.target.closest('.grid-cell') && !event.target.closest('.found')) {
+            isDragging = true;
+            const cellId = event.target.closest('.grid-cell').id;
+            selectedPath = [cellId];
+            getCell(getCoords(cellId)[0], getCoords(cellId)[1]).classList.add('selected');
+            showStatusMessage('തിരഞ്ഞെടുക്കുന്നു...', 'color: #d1d5db;');
+        }
+    };
+
+    const handleMouseMove = (event) => {
+        if (!isDragging) return;
+        
+        if (event.type.startsWith('touch')) {
+            event.preventDefault(); 
+        }
+
+        const target = event.touches && event.touches[0] 
+            ? document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY) 
+            : event.target;
+
+        const targetCell = target.closest('.grid-cell');
+        if (!targetCell || targetCell.classList.contains('found')) return;
+
+        const currentId = targetCell.id;
+        const lastId = selectedPath[selectedPath.length - 1];
+
+        if (currentId !== lastId) {
+            const [lr, lc] = getCoords(lastId);
+            const [cr, cc] = getCoords(currentId);
+
+            if (isAdjacent(lr, lc, cr, cc) || selectedPath.length === 1) {
+                const newPath = calculatePath(selectedPath[0], currentId);
+                
+                if (newPath.length > 0) {
+                    selectedPath.forEach(id => {
+                        if (!newPath.includes(id)) {
+                            const cell = document.getElementById(id);
+                            if (cell) cell.classList.remove('selected');
+                        }
+                    });
+                    
+                    newPath.forEach(id => {
+                        const cell = document.getElementById(id);
+                        if (cell) cell.classList.add('selected');
+                    });
+                    selectedPath = newPath;
+                }
+            }
+        }
+    };
+
+    const handleMouseUp = () => {
+        if (isDragging) {
+            checkWord();
+        }
+        isDragging = false;
+    };
+
+    // --- Initialization ---
+
+    const initializeGame = () => {
+        try {
+            createGrid();
+            
+            // Attach event listeners for mouse
+            GRID_CONTAINER.addEventListener('mousedown', handleMouseDown);
+            GRID_CONTAINER.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+            
+            // Add touch support for mobile
+            GRID_CONTAINER.addEventListener('touchstart', handleMouseDown, { passive: true });
+            GRID_CONTAINER.addEventListener('touchmove', handleMouseMove, { passive: false }); 
+            document.addEventListener('touchend', handleMouseUp);
+            
+        } catch (error) {
+            console.error("Game initialization failed:", error);
+            // This is the static text element, ensure it's selected to show the error
+            if (STATUS_MESSAGE) {
+                STATUS_MESSAGE.textContent = "ഗെയിം പിശക് (Game Error): " + error.message;
+                STATUS_MESSAGE.style.color = 'red';
+            }
+        }
+    };
+
+    // Call the initialization function immediately after its definition
+    initializeGame();
+</script>
+</body></html>
